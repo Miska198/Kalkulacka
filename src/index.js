@@ -1,6 +1,13 @@
-document.getElementById("app").innerHTML = `
-<h1>Kalkulator</h1>
-<div style="margin-right: auto; margin-left: auto;">
 
-</div>
-`;
+
+const calculator = {
+  displayValue: "0",
+  firstOperant: null,
+  waitingForSecondOperant: false,
+  operator: null
+}
+
+function updateDisplay(){
+  const display = document.querySelector("calculator-screen");
+  display.value = calculator.displayValue;
+}

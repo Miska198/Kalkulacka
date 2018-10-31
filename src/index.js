@@ -28,11 +28,31 @@ function inputDigit(digit) {
 function handleOperator(nextOperator) {
   if (calculator.firstOperand === null) {
     calculator.firstOperand = parseFloat(calculator.displayValue);
+  } else if (calculator.operator) {
+    const result = performCalculation[calculator.operator](
+      calculator.firstOperand,
+      parseFloat(calculator.displayValue)
+    );
+
+    calculator.displayValue = String(result);
+    calculator.firstOperand = result;
   }
 
   calculator.waitingForSecondOperand = true;
   calculator.operator = nextOperator;
 }
+
+const performCalculation = {
+  "/": (firstOperand, secondOperand) => firstOperand / secondOperand,
+
+  "*": (firstOperand, secondOperand) => firstOperand * secondOperand,
+
+  "+": (firstOperand, secondOperand) => firstOperand + secondOperand,
+
+  "-": (firstOperand, secondOperand) => firstOperand - secondOperand,
+
+  "=": (firstOperand, secondOperand) => secondOperand
+};
 
 const keys = document.querySelector(".calculator-keys");
 keys.addEventListener("click", event => {
